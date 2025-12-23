@@ -1,1 +1,53 @@
-
+{
+  "version": "3",
+  "templates": [
+    {
+      "type": "container",
+      "title": "Vaultwarden (Secure, Latest)",
+      "description": "Self-hosted Bitwarden-compatible password manager with admin panel and secure defaults.",
+      "note": "Admin panel available at /admin using ADMIN_TOKEN. Public signups disabled by default.",
+      "categories": ["Security", "Password Manager"],
+      "platform": "linux",
+      "logo": "https://raw.githubusercontent.com/dani-garcia/vaultwarden/main/resources/vaultwarden-icon.svg",
+      "image": "vaultwarden/server:latest",
+      "ports": [
+        "8081:80"
+      ],
+      "volumes": [
+        {
+          "container": "/data",
+          "bind": "/data/vaultwarden"
+        }
+      ],
+      "env": [
+        {
+          "name": "DOMAIN",
+          "label": "Vaultwarden Domain",
+          "default": "http://192.168.2.16:8081"
+        },
+        {
+          "name": "ADMIN_TOKEN",
+          "label": "Admin Token",
+          "description": "Generate with: openssl rand -base64 48",
+          "default": ""
+        },
+        {
+          "name": "SIGNUPS_ALLOWED",
+          "label": "Allow Signups",
+          "default": "false"
+        },
+        {
+          "name": "INVITATIONS_ALLOWED",
+          "label": "Allow Invitations",
+          "default": "true"
+        },
+        {
+          "name": "LOG_LEVEL",
+          "label": "Log Level",
+          "default": "info"
+        }
+      ],
+      "restart_policy": "unless-stopped"
+    }
+  ]
+}
